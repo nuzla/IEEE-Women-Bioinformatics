@@ -1,6 +1,6 @@
 # Pangenome Graphs Workshop
 <p align="justify">
-This repository contains material to construct pangenome graphs for a small bacteria dataset detailing every step in the Nesi environment. This study includes an anaysis of Neisseria Bacteria genome sequence data with 4Sim data samples to construct pangenome graphs to identify genetic variation and structural variance.
+This repository contains material to construct pangenome graphs for a small bacteria dataset detailing every step in the Nesi environment. This study includes an anaysis of Neisseria Bacteria genome sequence data with SimulatedData data samples to construct pangenome graphs to identify genetic variation and structural variance.
 </p>
 
 ### Brief Overview of Pangenome Graphs
@@ -81,7 +81,7 @@ The National Library of Medicine is the largest library focused on biomedicine w
 
 ---
 # Procedure 
-### 1. Downloading and preparing assembly data file 4Sim.fa
+### 1. Downloading and preparing assembly data file SimulatedData.fa
 
 Please follow the proedure described in this [page](https://github.com/nuzla/Pangenome-Graphs-Workshop/blob/main/preparing_data_files.md)
 
@@ -473,17 +473,17 @@ The procedure described in [this page](https://github.com/nuzla/Pangenome-Graphs
 
 e.g. :
 ```
-bcftools isec -p output_dir 4Sim_ref.vcf.gz 4Sim_1K98.vcf.gz 
+bcftools isec -p output_dir SimulatedData_ref.vcf.gz SimulatedData_1K98.vcf.gz 
 cd output_dir/
 cat README.txt 
 This file was produced by vcfisec.
-The command line was:	bcftools isec  -p output_dir 4Sim_ref.vcf.gz 4Sim_1K98.vcf.gz
+The command line was:	bcftools isec  -p output_dir SimulatedData_ref.vcf.gz SimulatedData_1K98.vcf.gz
 
 Using the following file names:
-output_dir/0000.vcf	for records private to	4Sim_ref.vcf.gz
-output_dir/0001.vcf	for records private to	4Sim_1K98.vcf.gz
-output_dir/0002.vcf	for records from 4Sim_ref.vcf.gz shared by both	4Sim_ref.vcf.gz 4Sim_1K98.vcf.gz
-output_dir/0003.vcf	for records from 4Sim_1K98.vcf.gz shared by both	4Sim_ref.vcf.gz 4Sim_1K98.vcf.gz
+output_dir/0000.vcf	for records private to	SimulatedData_ref.vcf.gz
+output_dir/0001.vcf	for records private to	SimulatedData_1K98.vcf.gz
+output_dir/0002.vcf	for records from SimulatedData_ref.vcf.gz shared by both	SimulatedData_ref.vcf.gz SimulatedData_1K98.vcf.gz
+output_dir/0003.vcf	for records from SimulatedData_1K98.vcf.gz shared by both	SimulatedData_ref.vcf.gz SimulatedData_1K98.vcf.gz
 ```
 As usual we can apply `bcftools stats <file.vcf>` to get the stats form each file. We can illustrate it with the below Venn diagram.
 
@@ -524,12 +524,12 @@ module load Singularity
 #export container to a variable for convenience
 WD=/nesi/nobackup/ga03793/pg_workshop #Working Directory
 container=/nesi/project/ga03793/software/pgge/pgge_032023.simg
-data=${WD}/4Sim.fa
+data=${WD}/SimulatedData.fa
 
 #Bind filesystem to container image 
 export SINGULARITY_BIND="${WD}, /nesi/project/ga03793/"
 
-singularity exec ${container} pgge -g ${WD}/output/*.gfa -f $data -o pgge -r ${WD}/beehave.R -b pgge/pgge_4Sim_peanut_bed -l 100000 -s 5000 -t 16
+singularity exec ${container} pgge -g ${WD}/output/*.gfa -f $data -o pgge -r ${WD}/beehave.R -b pgge/pgge_SimulatedData_peanut_bed -l 100000 -s 5000 -t 16
 ```
 _Please explain the options_
 
